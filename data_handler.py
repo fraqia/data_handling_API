@@ -1,20 +1,12 @@
 import requests
 import json
 
-api_url = "https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/icte/statfin_icte_pxt_13vg.px"
+api_url = "https://api.tvmaze.com/singlesearch/shows"
+params = {"q":"Girls"}
 
-with open('query.json', 'r') as file:
-    json_query = json.load(file)
+response = requests.get(api_url, params)
 
-response = requests.post(api_url, json=json_query)
-
-# Check if the request was successful
 if response.status_code == 200:
-    # Parse JSON response
-    data = response.json()
-
-    # Now you can work with the JSON data
-    # For example, you can print the entire JSON data
-    print(json.dumps(data, indent=4))
+    print(response.text)
 else:
-    print("Failed to fetch data from API:", response.status_code)
+    print(f'Error: {response.status_code}')
